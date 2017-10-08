@@ -358,16 +358,29 @@ namespace macro_test
 #define MY_MACRO 1
 
 #define SETGET_PROP(propName, type) \
-	type propName;
+	private:												\
+		type propName;										\
+	public:													\
+		type Get##propName()								\
+		{													\
+			if constexpr (std::is_same<type, int>::value)	\
+				return propName * 2;						\
+			return propName;								\
+		}													\
+		void Set##propName(type p) { propName = p; }
+
+class MyClass {
+	SETGET_PROP(x, int);
+};
 
 void test()
 {
+	MyClass mc;
+	mc.Setx(100);
+	printf("%d\n", mc.Getx());
 	printf("name %s\n", QUOTE(MY_MACRO));
 }
 
-class MyClass {
-
-};
 
 }
 
