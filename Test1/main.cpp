@@ -340,10 +340,42 @@ void test()
 
 }
 
+namespace dynamic_coin_change
+{
+
+void test()
+{
+	int coinValue[3] = { 10, 6, 1 };
+	
+}
+
+}
+
+namespace macro_test
+{
+
+#define QUOTE(x) #x
+#define MY_MACRO 1
+
+#define SETGET_PROP(propName, type) \
+	type propName;
+
+void test()
+{
+	printf("name %s\n", QUOTE(MY_MACRO));
+}
+
+class MyClass {
+
+};
+
+}
+
+
 int main()
 {
 	//decltype_test::test();
-	lt200::test();
+	macro_test::test();
 
     return 0;
 }
