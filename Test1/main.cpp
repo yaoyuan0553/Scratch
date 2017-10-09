@@ -357,6 +357,11 @@ namespace macro_test
 #define QUOTE(x) #x
 #define MY_MACRO 1
 
+#define DNS_A 1
+#define DNS_B 2
+#define DNS_C 3
+#define DNS_Z 100
+
 #define SETGET_PROP(propName, type) \
 	private:												\
 		type propName;										\
@@ -373,12 +378,29 @@ class MyClass {
 	SETGET_PROP(x, int);
 };
 
+#define CASE(x) case x: return #x
+
+const char* macroNamePrinter(int x)
+{
+	switch (x)
+	{
+		CASE(DNS_A);
+		CASE(DNS_B);
+		CASE(DNS_C);
+		CASE(DNS_Z);
+	}
+}
+
+
 void test()
 {
 	MyClass mc;
 	mc.Setx(100);
 	printf("%d\n", mc.Getx());
 	printf("name %s\n", QUOTE(MY_MACRO));
+
+	int x = DNS_A;
+	printf("Macro %s = %d\n", macroNamePrinter(x), x);
 }
 
 
